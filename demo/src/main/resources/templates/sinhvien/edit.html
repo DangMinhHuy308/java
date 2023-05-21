@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>Edit Student</h1>
+    <form th:object="${sinhvien}" th:action="@{/sinhviens/edit}" method="post">
+        <input type="hidden" th:field="*{MSSV}" />
+        <div class="col-6 mb-3">
+            <label for="fullName">Full Name:</label>
+            <input type="text" class="form-control" id="fullName" th:field="*{fullName}" />
+        </div>
+        <!--<div class="form-group">
+            <label for="tenLop">Class Name:</label>
+            <input type="text" class="form-control" id="tenLop" th:field="*{lop.tenLop}" />
+        </div>-->
+        <!--<div class="col-6 mb-3">
+            <label for="ngaySinh">Date of Birth:</label>
+            <input type="date" class="form-control" id="ngaySinh" th:field="*{ngaySinh}" />
+        </div>-->
+        <div class="col-6 mb-3">
+            <label class="form-label" for="lop">Class: </label>
+            <select class="form-control" id="lop" name="lop.maLop">
+                <option value="">-- Select Class --</option>
+                <option th:each="lop : ${lops}"
+                        th:value="${lop.maLop}"
+                        th:text="${lop.tenLop}"></option>
+            </select>
+        </div>
+        <div class="col-6 mb-3">
+            <label for="Email">Email:</label>
+            <input type="text" class="form-control" id="Email" th:field="*{Email}" />
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a th:href="/sinhviens" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

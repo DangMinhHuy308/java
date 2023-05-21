@@ -1,0 +1,111 @@
+    <!--
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Student list</title>
+        <th:block th:replace="layout :: link-css"></th:block>
+    </head>
+    <body>
+    <th:block th:replace="layout :: header"></th:block>
+    <div class="container">
+        <h1 th:text="${title}"></h1>
+        <table class="table">
+            <tr>
+                <th>MSSV</th>
+                <th>Họ tên</th>
+                <th>Tên lớp</th>
+                <th>Ngày sinh</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="sinhvien : ${sinhviens}">
+                <td th:text ="${sinhvien.MSSV}"></td>
+                <td th:text ="${sinhvien.fullName}"></td>
+                <td th:text ="${sinhvien.lop.tenLop}"></td>
+                <td th:text="${#dates.format(sinhvien.ngaySinh, 'dd/MM/yyyy')}"></td>
+                <td th:text ="${sinhvien.Email}"></td>
+
+                <td>
+                    <a th:href="@{/sinhviens/edit/{id}(id=${sinhvien.MSSV})}" class="btn btn-success"><i class="fas fa-edit"></i></a> |
+                    <a th:href="@{/sinhviens/delete/{id}(id=${sinhvien.MSSV})}" onclick="return confirm('Are you sure?')" class="btn btn-danger" > <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <th:block th:replace="layout :: footer"></th:block>
+    </body>
+    </html>-->
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Book list</title>
+        <th:block th:replace="layout :: link-css"></th:block>
+    </head>
+    <body>
+    <th:block th:replace="layout :: header"></th:block>
+    <div class="container">
+        <div>
+            <h1 th:text="${title}"></h1>
+            <table class="table">
+                <tr>
+                    <th>
+                        <a th:href="@{${'/sinhviens'} + ${'/?page='} + ${currentPage} + ${'&sortBy=MSSV'}}">
+                            MSSV
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{${'/sinhviens'} + ${'/?page='} + ${currentPage} + ${'&sortBy=fullName'}}">
+                            Họ tên
+                        </a>
+                    </th>
+
+                    <th>Tên lớp</th>
+                    <th>Ngày sinh</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="sinhvien : ${sinhviens}">
+
+                    <td th:text="${sinhvien.MSSV}"></td>
+                    <td th:text="${sinhvien.fullName}"></td>
+                    <td th:text ="${sinhvien.lop.tenLop}"></td>
+                    <td th:text="${#dates.format(sinhvien.ngaySinh, 'dd/MM/yyyy')}"></td>
+                    <td th:text ="${sinhvien.Email}"></td>
+
+                    <td>
+                        <a th:href="@{/sinhviens/edit/{id}(id=${sinhvien.MSSV})}" class="btn btn-success">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        |
+                        <a th:href="@{/sinhviens/delete/{id}(id=${sinhvien.MSSV})}" onclick="return confirm('Are you sure?')" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <nav>
+                <ul class="pagination">
+                    <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                        <a th:href="@{${'/sinhviens'} + ${'/?page='} + ${currentPage - 1} + ${'&sortBy='} + ${sortBy}}" class="page-link">Previous</a>
+                    </li>
+                    <li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
+                        th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+                        <a th:href="@{${'/sinhviens'} + ${'/?page='} + ${page} + ${'&sortBy='} + ${sortBy}}" class="page-link" th:text="${page + 1}"></a>
+                    </li>
+                    <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+                        <a th:href="@{${'/sinhviens'} + ${'/?page='} + ${currentPage + 1} + ${'&sortBy='} + ${sortBy}}" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+    <th:block th:replace="layout :: footer"></th:block>
+    </body>
+    </html>
+
+
